@@ -77,7 +77,7 @@ When you leave a field, both wisdom and distortion are still alive in your syste
 - Expected: We see some difference but hesitate to act on it; clarity begins but isn't yet solid.
 - Excellent: We name the real gifts and what must be released; energy feels steadier and cleaner.
 - Transcendent: Discernment becomes natural. Every ending quickly reveals what's worth carrying forward.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What parts of this experience make me stronger?
 - What habits or attitudes drain me when I remember them?
 - What belongs in my future, and what doesn't?
@@ -95,7 +95,7 @@ I've separated what strengthens me from what no longer serves.
 - Expected: We notice the pattern but treat it as personal failure.
 - Excellent: We understand its purpose and why it lasted. The pattern begins to lose hold.
 - Transcendent: We see patterns as feedback, not flaws. Growth becomes calm and consistent.
-  **Guiding Questions:**
+**Guiding Questions:**
 - When did this pattern first start?
 - What need or fear was it protecting?
 - How has it helped and limited me?
@@ -113,7 +113,7 @@ I understand where this pattern came from and why it no longer needs to run.
 - Expected: We see some value but understate its importance.
 - Excellent: We name the clear benefits and see how they equip us for what's next.
 - Transcendent: We recognise that every experience holds value. Confidence and gratitude become steady foundations.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What specific strengths or insights came from this field?
 - What am I more capable of now?
 - How can I name the gift in a way that's useful, not sentimental?
@@ -131,7 +131,7 @@ I've identified the real gifts this field gave me and can describe how they will
 - Expected: We recognise what needs to go but release only part of it. The improvement is partial.
 - Excellent: We clear the distortion fully. The lesson feels lighter and more empowering.
 - Transcendent: We become skilled at clearing distortion quickly. Integrity stays high through change.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What emotional charge or belief still attaches to this lesson?
 - How can I release it without rejecting the learning?
 - What does clean understanding feel like in my body?
@@ -149,7 +149,7 @@ I've let go of the residue that distorted the gift, keeping only what strengthen
 - Expected: We apply it sometimes, noticing partial results.
 - Excellent: We use it consistently and see better outcomes.
 - Transcendent: The gift becomes part of our natural way of working. Growth feels steady and effortless.
-  **Guiding Questions:**
+**Guiding Questions:**
 - Where can I apply this lesson today?
 - How can I tell the gift is active in my choices?
 - What feedback shows I'm using it well?
@@ -167,7 +167,7 @@ I've applied the gift in real situations and confirmed that it strengthens my wo
 - Expected: We catch drift occasionally but react late.
 - Excellent: We monitor ourselves regularly and correct course quickly.
 - Transcendent: Awareness stays continuous; old patterns no longer take root at all.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What signs show the old pattern might be creeping back?
 - How can I stay alert without becoming anxious?
 - What supports help keep this awareness alive?

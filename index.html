@@ -2018,6 +2018,12 @@
 
       // Animate text revealing in random order - opacity only, no zooms
       async function jigsawText(element, text, duration = 300) {
+        // Prevent concurrent animations on the same element
+        if (element.dataset.animating === 'true') {
+          return;
+        }
+        element.dataset.animating = 'true';
+
         const words = text.split(/(\s+)/); // Split by whitespace but keep spaces
 
         element.textContent = '';
@@ -2146,6 +2152,9 @@
         spansToCleanup.forEach(({ span, word }) => {
           span.textContent = word;
         });
+
+        // Clear animation flag
+        element.dataset.animating = 'false';
       }
 
       // Jigsaw version of the intro flow - text cascades down line by line (faster)

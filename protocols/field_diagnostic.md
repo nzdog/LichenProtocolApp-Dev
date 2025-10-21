@@ -94,7 +94,7 @@ By naming the field, they reclaim the ability to choose how to respond and wheth
 - Expected: Name surface behaviors → future of more accurate reflection.
 - Excellent: Connect behaviors to field dynamics → future of proactive awareness.
 - Transcendent: Behaviors become live signals → future of instant self-correction.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What language am I using most often right now?
 - How do I act under pressure—push harder, freeze, comply, withdraw?
 - What behaviors would others notice first in me this week?
@@ -112,7 +112,7 @@ I have named the visible patterns in my behavior and language without judgment.
 - Expected: Notice cues → future of informed choices.
 - Excellent: Map experience to field dynamics → future of deeper alignment.
 - Transcendent: Body becomes compass → future of embodied diagnosis.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What sensations arise when I picture continuing as I am?
 - Where does tension, heaviness, or lightness sit in my body?
 - What emotions repeat most often this week?
@@ -130,7 +130,7 @@ I have noticed how my body registers this field, and I trust these signals.
 - Expected: See rewards/punishments → future of clearer agency.
 - Excellent: Identify incentive shaping → future of resistance.
 - Transcendent: Operate by integrity → future of freedom from manipulation.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What gets praised, noticed, or rewarded in this context?
 - What is ignored, punished, or made invisible?
 - When do I feel compelled to comply even if misaligned?
@@ -148,7 +148,7 @@ I have identified what this field rewards and punishes, and I see how it trains 
 - Expected: Identify dominant stories → future of critical distance.
 - Excellent: See how stories shape choices → future of discernment.
 - Transcendent: Rewrite the story → future of self-authored field.
-  **Guiding Questions:**
+**Guiding Questions:**
 - What story does this field tell about success and failure?
 - What story does it tell about rest, productivity, or worth?
 - What story does it tell about relationships and power?
@@ -166,7 +166,7 @@ I have named the stories this field tells, and I recognize they are not inevitab
 - Expected: Notice stress behaviors → future of awareness.
 - Excellent: See how demands train responses → future of choice.
 - Transcendent: Remain steady regardless of field pressure → future of resilient coherence.
-  **Guiding Questions:**
+**Guiding Questions:**
 - How does this field react when things go wrong?
 - What is demanded under stress?
 - How do I find myself reacting in parallel?

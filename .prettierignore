@@ -25,3 +25,6 @@ build
 coverage
 *.min.js
 *.min.css
+
+# Protocol markdown files (preserve exact formatting for parser compatibility)
+protocols/**/*.md

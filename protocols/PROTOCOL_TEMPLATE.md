@@ -55,7 +55,7 @@ stones:
 - Expected: [Expected outcome for this theme]
 - Excellent: [Excellent outcome for this theme]
 - Transcendent: [Transcendent outcome for this theme]
-  **Guiding Questions:**
+**Guiding Questions:**
 - [Question 1 - What specific aspect should they explore?]
 - [Question 2 - How does this relate to their experience?]
 - [Question 3 - What insight might this reveal?]
@@ -73,7 +73,7 @@ stones:
 - Expected: [Expected outcome for this theme]
 - Excellent: [Excellent outcome for this theme]
 - Transcendent: [Transcendent outcome for this theme]
-  **Guiding Questions:**
+**Guiding Questions:**
 - [Question 1 - What specific aspect should they explore?]
 - [Question 2 - How does this relate to their experience?]
 - [Question 3 - What insight might this reveal?]
@@ -91,7 +91,7 @@ stones:
 - Expected: [Expected outcome for this theme]
 - Excellent: [Excellent outcome for this theme]
 - Transcendent: [Transcendent outcome for this theme]
-  **Guiding Questions:**
+**Guiding Questions:**
 - [Question 1 - What specific aspect should they explore?]
 - [Question 2 - How does this relate to their experience?]
 - [Question 3 - What insight might this reveal?]

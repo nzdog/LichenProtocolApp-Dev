@@ -3,9 +3,11 @@ import Anthropic from '@anthropic-ai/sdk';
 export class ClaudeClient {
   private client: Anthropic;
   private model: string = 'claude-sonnet-4-20250514';
+  private defaultProtocolSlug: string;
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, defaultProtocolSlug: string = 'field_diagnostic') {
     this.client = new Anthropic({ apiKey });
+    this.defaultProtocolSlug = defaultProtocolSlug;
   }
 
   /**
@@ -90,7 +92,7 @@ export class ClaudeClient {
         intent: 'memory',
         continuity: true,
         protocol_pointer: {
-          protocol_slug: 'field_diagnostic',
+          protocol_slug: this.defaultProtocolSlug,
           theme_index: null,
         },
         confidence: 0.5,
@@ -102,7 +104,7 @@ export class ClaudeClient {
 
       // Add default confidence if missing (common issue with classifier)
       if (parsed && typeof parsed === 'object' && 'intent' in parsed && !('confidence' in parsed)) {
-        (parsed as Record<string, unknown>).confidence = 0.7;
+        (parsed as Record<string, unknown>).confidence = 0.3;
       }
 
       return parsed;
