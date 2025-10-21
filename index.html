@@ -1980,21 +1980,39 @@
 
             element.textContent = '';
             const spans = [];
+            
+            // Detect mobile or reduced motion preference for simpler animation
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const useSimpleAnimation = isMobile || prefersReducedMotion;
 
+            // Performance limits: max 30% letter-breakdown, cap total letter spans at 150
+            const maxLetterBreakdownRatio = useSimpleAnimation ? 0 : 0.3;
+            const maxTotalLetterSpans = 150;
+            let letterSpanCount = 0;
+            let letterBreakdownCount = 0;
+            const maxLetterBreakdowns = Math.floor(words.filter(w => w.trim() !== '').length * maxLetterBreakdownRatio);
+
+            // Batch DOM insertions with DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
             // Create spans for each word/space
             words.forEach(word => {
                 if (word.trim() === '') {
-                    element.appendChild(document.createTextNode(word));
+                    fragment.appendChild(document.createTextNode(word));
                 } else {
                     const span = document.createElement('span');
                     span.textContent = word;
                     span.style.opacity = '0';
                     span.style.transition = 'opacity 0.15s ease-in';
                     span.style.display = 'inline';
-                    element.appendChild(span);
+                    fragment.appendChild(span);
                     spans.push(span);
                 }
             });
+            
+            // Single DOM append for all spans
+            element.appendChild(fragment);
 
             // Create random order for revealing
             const indices = spans.map((_, i) => i);
@@ -2002,6 +2020,9 @@
                 const j = Math.floor(Math.random() * (i + 1));
                 [indices[i], indices[j]] = [indices[j], indices[i]];
             }
+
+            // Track spans with letter breakdown for cleanup
+            const spansToCleanup = [];
 
             // Reveal words/letters in random order
             const totalSteps = Math.ceil(spans.length * 1.2);
@@ -2011,15 +2032,28 @@
             for (let step = 0; step < totalSteps && revealed < spans.length; step++) {
                 setTimeout(() => {
                     if (revealed < spans.length) {
-                        // Randomly: reveal full word (60%) or break into letters (40%)
-                        if (Math.random() > 0.4) {
-                            spans[indices[revealed]].style.opacity = '1';
+                        const span = spans[indices[revealed]];
+                        const shouldBreakIntoLetters = !useSimpleAnimation && 
+                                                       Math.random() > 0.4 && 
+                                                       letterBreakdownCount < maxLetterBreakdowns &&
+                                                       letterSpanCount < maxTotalLetterSpans;
+                        
+                        if (!shouldBreakIntoLetters) {
+                            // Simple word reveal
+                            span.style.opacity = '1';
                             revealed++;
                         } else {
                             // Break word into letters and reveal in random order
-                            const span = spans[indices[revealed]];
                             const word = span.textContent;
                             const letters = word.split('');
+
+                            // Check if adding these letters would exceed cap
+                            if (letterSpanCount + letters.length > maxTotalLetterSpans) {
+                                // Just reveal the word normally
+                                span.style.opacity = '1';
+                                revealed++;
+                                return;
+                            }
 
                             span.textContent = '';
                             const letterSpans = letters.map(letter => {
@@ -2031,6 +2065,10 @@
                                 span.appendChild(letterSpan);
                                 return letterSpan;
                             });
+
+                            letterSpanCount += letters.length;
+                            letterBreakdownCount++;
+                            spansToCleanup.push({ span, word });
 
                             span.style.opacity = '1';
 
@@ -2057,6 +2095,11 @@
             // Wait for animation to complete
             await new Promise(resolve => {
                 setTimeout(resolve, duration + 200);
+            });
+
+            // Cleanup: Replace letter spans with plain text to reduce DOM nodes
+            spansToCleanup.forEach(({ span, word }) => {
+                span.textContent = word;
             });
         }
 
