@@ -5,16 +5,15 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ['**'] # Run on all branches
   pull_request:
-    branches: [ "main" ]
-    
+    branches: ['**'] # Run on all PRs
+
 env:
   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-  
+
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -23,16 +22,28 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+      - uses: actions/checkout@v4
 
-    - name: Run lint
-      run: npm run lint
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check code formatting
+        run: npm run format
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Run tests
+        run: npm test

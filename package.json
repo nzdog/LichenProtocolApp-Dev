@@ -47,7 +47,15 @@
     "vitest": "^3.2.4"
   },
   "lint-staged": {
-    "*.{js,ts,tsx,css,md}": "prettier --write",
-    "*.{yml,yaml}": "prettier --write"
+    "*.{js,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{css,md,json,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "bash -c 'tsc --noEmit'"
+    ]
   }
 }
