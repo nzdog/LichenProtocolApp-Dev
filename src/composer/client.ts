@@ -102,9 +102,9 @@ export class ClaudeClient {
     try {
       const parsed = JSON.parse(jsonString) as T;
 
-      // Add default confidence if missing (common issue with classifier)
+      // Validate that confidence is present - missing confidence is a contract violation
       if (parsed && typeof parsed === 'object' && 'intent' in parsed && !('confidence' in parsed)) {
-        (parsed as Record<string, unknown>).confidence = 0.3;
+        throw new Error('Missing required confidence field in classifier response');
       }
 
       return parsed;
