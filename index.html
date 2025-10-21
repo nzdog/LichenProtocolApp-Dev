@@ -806,9 +806,6 @@
             transform: translate(-50%, -50%) scale(1.05);
         }
 
-        .intro-logo-container.clicked {
-            pointer-events: none;
-        }
 
         .logo-spin-intro {
             width: 96px;
@@ -2529,7 +2526,7 @@
                 }
             }, 960); // 0.96 second delay before auto-start
 
-            console.log('Click the logo for fast jigsaw cascade, or wait 3s for normal intro');
+            console.log('Click the logo for fast jigsaw cascade, or wait 0.96s for normal intro');
         }
 
         // ========================================
@@ -3175,11 +3172,15 @@
                     sectionDiv.appendChild(contentDiv);
                     entryResponseArea.appendChild(sectionDiv);
 
-                    // Apply jigsaw animation to all text
-                    textElements.forEach(el => {
+                    // Apply jigsaw animation to all text with staggered starts
+                    textElements.forEach((el, elementIndex) => {
                         if (el.textContent.trim()) {
                             el.style.opacity = '1';
-                            animateTextReveal(el, 300);
+                            // Stagger animation starts by 50ms per element to prevent performance issues
+                            const delay = elementIndex * 50;
+                            setTimeout(() => {
+                                animateTextReveal(el, 300);
+                            }, delay);
                         }
                     });
                 });
@@ -3188,37 +3189,29 @@
                 addContinueButton();
             }
 
-            // Add click handler to title (with cleanup to prevent duplicates)
+            // Add click handler to title
             if (title) {
-                // Remove any existing handlers first
-                const newTitle = title.cloneNode(true);
-                title.parentNode.replaceChild(newTitle, title);
-
-                // Re-apply accessibility attributes after cloning
-                newTitle.setAttribute('tabindex', '0');
-                newTitle.setAttribute('role', 'button');
-                newTitle.setAttribute('aria-label', 'Click to reveal all protocol sections');
-                newTitle.style.cursor = 'pointer';
-                newTitle.style.transition = 'transform 0.2s ease';
-                newTitle.className = title.className;
-
-                // Add click and keyboard handlers
+                // Define handlers
                 const handleReveal = () => revealAllSections();
-                newTitle.addEventListener('click', handleReveal);
-                newTitle.addEventListener('keydown', (e) => {
+                const handleKeyDown = (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         handleReveal();
                     }
-                });
+                };
+                const handleMouseEnter = () => {
+                    title.style.transform = 'scale(1.02)';
+                };
 
-                // Add hover effects
-                newTitle.addEventListener('mouseenter', () => {
-                    newTitle.style.transform = 'scale(1.02)';
-                });
-                newTitle.addEventListener('mouseleave', () => {
-                    newTitle.style.transform = 'scale(1)';
-                });
+                // Add event listeners
+                const handleMouseLeave = () => {
+                    title.style.transform = 'scale(1)';
+                };
+
+                title.addEventListener('click', handleReveal);
+                title.addEventListener('keydown', handleKeyDown);
+                title.addEventListener('mouseenter', handleMouseEnter);
+                title.addEventListener('mouseleave', handleMouseLeave);
             }
 
             // Show first section immediately
