@@ -31,7 +31,8 @@
       "Bash(for branch in speeding-up tweaks-and-polish wired-and-ready)",
       "Bash(do echo \"=== $branch ===\")",
       "Bash(done)",
-      "Bash(git log:*)"
+      "Bash(git log:*)",
+      "Bash(npm run lint)"
     ],
     "deny": [],
     "ask": []

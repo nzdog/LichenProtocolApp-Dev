@@ -9,7 +9,6 @@ import {
   ConversationTurn,
   Mode,
   ClassificationResult,
-  Intent,
 } from './types';
 
 export class FieldDiagnosticAgent {
@@ -238,7 +237,7 @@ export class FieldDiagnosticAgent {
    * Determine what theme index will be used for this response
    * Uses AI-driven semantic intent from classification
    */
-  private getThemeIndexForResponse(mode: Mode, classification: ClassificationResult, userMessage: string): number | null {
+  private getThemeIndexForResponse(mode: Mode, classification: ClassificationResult, _userMessage: string): number | null {
     console.log(`\n🔍 AGENT: getThemeIndexForResponse - mode=${mode}, intent=${classification.intent}, current_theme=${this.state.theme_index}`);
     console.log(`   last_response=${this.state.last_response}`);
     console.log(`   user_wants_to:`, classification.user_wants_to);
@@ -468,7 +467,7 @@ export class FieldDiagnosticAgent {
   /**
    * Build static response from protocol content (skips AI call)
    */
-  private buildStaticResponse(mode: Mode, chunk: any, themeIndex: number | null, nextThemeTitle: string | null): string {
+  private buildStaticResponse(mode: Mode, chunk: { content: string } | null, themeIndex: number | null, _nextThemeTitle: string | null): string {
     if (mode === 'ENTRY') {
       // Return ENTRY mode protocol introduction as JSON for frontend
       const entryChunk = this.registry.retrieve('ENTRY', null);
@@ -496,7 +495,7 @@ export class FieldDiagnosticAgent {
       let themeTitle = '';
       let purpose = '';
       let whyThisMatters = '';
-      let questions: string[] = [];
+      const questions: string[] = [];
       
       let inQuestions = false;
       

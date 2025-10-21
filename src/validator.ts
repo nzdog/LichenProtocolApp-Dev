@@ -127,7 +127,7 @@ export class WalkResponseValidator {
 
     // Check 2: All three guiding questions should be present (EXACT matching)
     // console.log('\n🔍 VALIDATOR: Checking questions...');
-    const questionsPresent = themeContent.questions.map((question, idx) => {
+    const questionsPresent = themeContent.questions.map((question, _idx) => {
       // Normalize whitespace but require exact text match
       const questionNormalized = question.toLowerCase().replace(/\s+/g, ' ').trim();
       const responseNormalized = response.toLowerCase().replace(/\s+/g, ' ');
@@ -176,7 +176,7 @@ export class WalkResponseValidator {
   generateDeterministicThemeResponse(
     themeIndex: number,
     awaitingConfirmation: boolean,
-    userReflection?: string
+    _userReflection?: string
   ): string {
     const chunk = this.registry.retrieve('WALK', themeIndex);
     if (!chunk) {

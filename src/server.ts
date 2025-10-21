@@ -8,6 +8,7 @@ import { ProtocolParser } from './protocol/parser';
 import { ProtocolLoader } from './protocol/loader';
 import { SessionState } from './types';
 import * as path from 'path';
+import * as fs from 'fs';
 
 // Load environment variables
 dotenv.config();
@@ -218,7 +219,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Temporarily disable static middleware to test logo route
-const fs = require('fs');
 const assetsPath = path.join(__dirname, '../assets');
 console.log(`📁 Assets path: ${assetsPath}`);
 
@@ -259,8 +259,6 @@ app.get('/lichen-logo.png', (_req: Request, res: Response) => {
 
 // Root endpoint - Serve the production frontend
 app.get('/', (_req: Request, res: Response) => {
-  const fs = require('fs');
-  const path = require('path');
   const indexPath = path.join(__dirname, '../index.html');
 
   if (fs.existsSync(indexPath)) {
@@ -272,8 +270,6 @@ app.get('/', (_req: Request, res: Response) => {
 
 // Test interface
 app.get('/test', (_req: Request, res: Response) => {
-  const fs = require('fs');
-  const path = require('path');
   const testFilePath = path.join(__dirname, '../test-frontend.html');
 
   if (fs.existsSync(testFilePath)) {

@@ -2,7 +2,6 @@ import { ClaudeClient } from './client';
 import { ENTRY_PROMPT, WALK_PROMPT, CLOSE_PROMPT } from './prompts';
 import { Mode, ConversationTurn, ProtocolChunk, UserIntent } from '../types';
 import { WalkResponseValidator } from '../validator';
-import * as path from 'path';
 
 export class Composer {
   private client: ClaudeClient;

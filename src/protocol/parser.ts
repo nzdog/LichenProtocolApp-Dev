@@ -118,7 +118,7 @@ export class ProtocolParser {
   /**
    * Extract WALK chunks (one per theme)
    */
-  private extractThemeChunks(content: string, metadata: ProtocolMetadata): Map<number, string> {
+  private extractThemeChunks(content: string, _metadata: ProtocolMetadata): Map<number, string> {
     const theme_chunks = new Map<number, string>();
     const lines = content.split('\n');
 
