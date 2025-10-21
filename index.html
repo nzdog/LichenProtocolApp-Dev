@@ -2061,7 +2061,15 @@
         }
 
         // Jigsaw version of the intro flow - text cascades down line by line (faster)
+        let jigsawIntroRunning = false;
         async function runIntroFlowJigsaw() {
+            // Guard against race conditions and duplicate executions
+            if (jigsawIntroRunning) {
+                console.log('Jigsaw intro already running, skipping...');
+                return;
+            }
+            jigsawIntroRunning = true;
+
             console.log('Starting jigsaw intro flow (cascade)...');
 
             // Clear any existing content
@@ -2122,6 +2130,9 @@
 
             // Announce for screen readers
             announceForScreenReader(quoteText + ' ' + embodimentLines.join(' '));
+
+            // Reset flag to allow future executions if needed
+            jigsawIntroRunning = false;
             console.log('Jigsaw cascade intro complete, continue button visible');
         }
 
@@ -3048,6 +3059,10 @@
                 // Make title clickable to reveal all content
                 title.style.cursor = 'pointer';
                 title.style.transition = 'transform 0.2s ease';
+                // Add keyboard accessibility
+                title.setAttribute('tabindex', '0');
+                title.setAttribute('role', 'button');
+                title.setAttribute('aria-label', 'Click to reveal all protocol sections');
             }
 
             // Create response area in entry view (only if it doesn't exist)
@@ -3130,14 +3145,36 @@
                 addContinueButton();
             }
 
-            // Add click handler to title
+            // Add click handler to title (with cleanup to prevent duplicates)
             if (title) {
-                title.addEventListener('click', revealAllSections);
-                title.addEventListener('mouseenter', () => {
-                    title.style.transform = 'scale(1.02)';
+                // Remove any existing handlers first
+                const newTitle = title.cloneNode(true);
+                title.parentNode.replaceChild(newTitle, title);
+
+                // Re-apply accessibility attributes after cloning
+                newTitle.setAttribute('tabindex', '0');
+                newTitle.setAttribute('role', 'button');
+                newTitle.setAttribute('aria-label', 'Click to reveal all protocol sections');
+                newTitle.style.cursor = 'pointer';
+                newTitle.style.transition = 'transform 0.2s ease';
+                newTitle.className = title.className;
+
+                // Add click and keyboard handlers
+                const handleReveal = () => revealAllSections();
+                newTitle.addEventListener('click', handleReveal);
+                newTitle.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleReveal();
+                    }
                 });
-                title.addEventListener('mouseleave', () => {
-                    title.style.transform = 'scale(1)';
+
+                // Add hover effects
+                newTitle.addEventListener('mouseenter', () => {
+                    newTitle.style.transform = 'scale(1.02)';
+                });
+                newTitle.addEventListener('mouseleave', () => {
+                    newTitle.style.transform = 'scale(1)';
                 });
             }
 

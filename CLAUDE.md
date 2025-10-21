@@ -1,7 +1,12 @@
 # Claude Code Project Guidelines
 
 ## Project Overview
-Lichen Protocol App - Interactive diagnostic protocol system with TypeScript, React, and Express backend.
+Lichen Protocol App - Interactive diagnostic protocol system with TypeScript/Express backend and vanilla HTML/JavaScript frontend.
+
+**Architecture:**
+- Backend: Express server with TypeScript
+- Frontend: Vanilla HTML/CSS/JavaScript (no framework)
+- No React, Vue, or other frontend frameworks
 
 ## Code Quality Standards
 
@@ -11,10 +16,12 @@ Lichen Protocol App - Interactive diagnostic protocol system with TypeScript, Re
 - Prefix unused variables with underscore (`_variableName`)
 - Use ES6 imports instead of `require()`
 
-### React
-- Functional components with hooks
-- Proper cleanup in useEffect
-- Accessibility: use semantic HTML and ARIA labels
+### Frontend (Vanilla JavaScript)
+- Use modern vanilla JS (ES6+)
+- Proper event listener cleanup to prevent memory leaks
+- Accessibility: use semantic HTML, ARIA labels, and keyboard support
+- Add `tabindex` and keyboard handlers for interactive elements
+- Use `role` attributes for custom interactive elements
 
 ### Code Style
 - Use async/await instead of callbacks
@@ -23,9 +30,10 @@ Lichen Protocol App - Interactive diagnostic protocol system with TypeScript, Re
 - Keep functions focused and under 50 lines when possible
 
 ### Performance
-- Use opacity-only animations (avoid transform/scale when possible)
-- Debounce frequent events
+- Combine CSS transforms when needed (e.g., `transform: translate() scale()`)
 - Clean up event listeners and timeouts
+- Debounce frequent events
+- Avoid memory leaks from duplicate event listener attachments
 
 ### Testing Priority Areas
 - API endpoints and error handling
