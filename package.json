@@ -8,7 +8,7 @@
     "server": "tsx src/server.ts",
     "build": "tsc",
     "start": "npm run build && node dist/server.js",
-    "test": "tsx test/scenarios.ts"
+    "test": "tsx test/scenarios.ts",
     "lint": "eslint ."
   },
   "keywords": [],
