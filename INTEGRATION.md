@@ -23,6 +23,7 @@ open test-frontend.html
 ```
 
 This demonstrates:
+
 - Starting a protocol session
 - Continuing through themes
 - Displaying composer output
@@ -52,6 +53,7 @@ Backend now returns `supports` array with protocol excerpts:
 ```
 
 **Implementation:**
+
 - `extractSupports()` function in `src/server.ts:100`
 - Extracts theme purpose and "why this matters" as supports
 - Provides protocol overview in ENTRY mode
@@ -76,6 +78,7 @@ POST /api/walk/complete
 ```
 
 **What's needed:**
+
 - Frontend modal/view to display `summary_html`
 - Triggered when mode === 'COMPLETE'
 - Markdown rendering of the field diagnosis
@@ -91,9 +94,11 @@ app.use(cors());
 For production, configure specific origins:
 
 ```typescript
-app.use(cors({
-  origin: 'https://your-frontend-domain.com'
-}));
+app.use(
+  cors({
+    origin: 'https://your-frontend-domain.com',
+  }),
+);
 ```
 
 ## API Response Structure
@@ -144,8 +149,8 @@ function parseComposerOutput(markdown) {
   if (questionsSection) {
     sections.questions = questionsSection[1]
       .split('\n')
-      .filter(line => line.startsWith('•'))
-      .map(line => line.replace('• ', '').trim());
+      .filter((line) => line.startsWith('•'))
+      .map((line) => line.replace('• ', '').trim());
   }
 
   // Extract completion prompt

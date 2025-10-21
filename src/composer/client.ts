@@ -14,7 +14,7 @@ export class ClaudeClient {
   async sendMessage(
     systemPrompt: string,
     messages: Array<{ role: 'user' | 'assistant'; content: string }>,
-    maxTokens: number = 2048
+    maxTokens: number = 2048,
   ): Promise<string> {
     const response = await this.client.messages.create({
       model: this.model,
@@ -37,7 +37,7 @@ export class ClaudeClient {
   async getStructuredResponse<T>(
     systemPrompt: string,
     messages: Array<{ role: 'user' | 'assistant'; content: string }>,
-    maxTokens: number = 1024
+    maxTokens: number = 1024,
   ): Promise<T> {
     const response = await this.sendMessage(systemPrompt, messages, maxTokens);
 

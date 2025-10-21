@@ -109,6 +109,7 @@ npm run test
 ```
 
 The test suite includes:
+
 1. Greeting Test
 2. ENTRY Mode Test
 3. WALK Transition Test

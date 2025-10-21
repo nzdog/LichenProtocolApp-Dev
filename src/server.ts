@@ -57,16 +57,19 @@ const sessions = new Map<string, Session>();
 const SESSION_TTL_MS = 60 * 60 * 1000; // 1 hour
 
 // Cleanup expired sessions every 10 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [sessionId, session] of sessions.entries()) {
-    const lastAccessed = new Date(session.last_accessed).getTime();
-    if (now - lastAccessed > SESSION_TTL_MS) {
-      sessions.delete(sessionId);
-      console.log(`🗑️  Cleaned up expired session: ${sessionId}`);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [sessionId, session] of sessions.entries()) {
+      const lastAccessed = new Date(session.last_accessed).getTime();
+      if (now - lastAccessed > SESSION_TTL_MS) {
+        sessions.delete(sessionId);
+        console.log(`🗑️  Cleaned up expired session: ${sessionId}`);
+      }
     }
-  }
-}, 10 * 60 * 1000);
+  },
+  10 * 60 * 1000,
+);
 
 // Helper: Get or create session
 function getSession(sessionId: string): Session | null {
@@ -111,7 +114,9 @@ function createSession(protocolSlug?: string): Session {
   };
 
   sessions.set(session.id, session);
-  console.log(`✨ Created new session: ${session.id} (protocol: ${protocolSlug || 'field_diagnostic'})`);
+  console.log(
+    `✨ Created new session: ${session.id} (protocol: ${protocolSlug || 'field_diagnostic'})`,
+  );
   return session;
 }
 
@@ -119,7 +124,7 @@ function createSession(protocolSlug?: string): Session {
 function extractSupports(
   registry: ProtocolRegistry,
   parser: ProtocolParser,
-  state: SessionState
+  state: SessionState,
 ): Support[] {
   const supports: Support[] = [];
 
@@ -152,7 +157,8 @@ function extractSupports(
     supports.push({
       source: 'Field Diagnostic Protocol',
       theme: 'Overview',
-      excerpt: 'This protocol helps surface the invisible field shaping your behavior, decisions, and emotional stance.',
+      excerpt:
+        'This protocol helps surface the invisible field shaping your behavior, decisions, and emotional stance.',
     });
   }
 
@@ -164,7 +170,7 @@ function formatResponse(
   agentResponse: string,
   state: SessionState,
   sessionId: string,
-  session: Session
+  session: Session,
 ) {
   // Parse theme number from state
   const themeNumber = state.theme_index || 1;
@@ -227,7 +233,7 @@ console.log(`📁 Assets path: ${assetsPath}`);
 const corsOptions = {
   origin: '*', // Allow all origins since frontend is served from same Railway domain
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -264,7 +270,9 @@ app.get('/', (_req: Request, res: Response) => {
   if (fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
-    res.status(404).send('Frontend not found. Please ensure index.html exists in the project root.');
+    res
+      .status(404)
+      .send('Frontend not found. Please ensure index.html exists in the project root.');
   }
 });
 
@@ -275,7 +283,11 @@ app.get('/test', (_req: Request, res: Response) => {
   if (fs.existsSync(testFilePath)) {
     res.sendFile(testFilePath);
   } else {
-    res.status(404).send('Test interface not found. Please ensure test-frontend.html exists in the project root.');
+    res
+      .status(404)
+      .send(
+        'Test interface not found. Please ensure test-frontend.html exists in the project root.',
+      );
   }
 });
 
@@ -295,7 +307,7 @@ app.get('/api/protocols', (_req: Request, res: Response) => {
     const protocols = loader.listProtocols();
 
     res.json({
-      protocols: protocols.map(p => ({
+      protocols: protocols.map((p) => ({
         id: p.id,
         slug: p.slug,
         title: p.title,
@@ -304,7 +316,7 @@ app.get('/api/protocols', (_req: Request, res: Response) => {
         why: p.why,
         use_when: p.use_when,
         theme_count: p.theme_count,
-      }))
+      })),
     });
   } catch (error) {
     console.error('Error listing protocols:', error);
@@ -379,7 +391,10 @@ app.post('/api/walk/continue', async (req: Request, res: Response) => {
     const response = formatResponse(agentResponse, state, session_id, session);
 
     // Debug: Log what we're sending to the frontend
-    console.log('\n🌐 SENDING TO FRONTEND (last 300 chars of composer_output):', response.composer_output.substring(response.composer_output.length - 300));
+    console.log(
+      '\n🌐 SENDING TO FRONTEND (last 300 chars of composer_output):',
+      response.composer_output.substring(response.composer_output.length - 300),
+    );
 
     res.json(response);
   } catch (error) {
@@ -415,22 +430,22 @@ app.post('/api/walk/complete', async (req: Request, res: Response) => {
     // If generate_summary requested, directly trigger CLOSE mode
     if (generate_summary) {
       console.log('🎯 COMPLETION: Directly forcing CLOSE mode to generate field diagnosis');
-      
+
       // Get current state and directly set it to CLOSE mode
       const state = session.agent.getState();
       state.mode = 'CLOSE';
-      
+
       // Trigger field diagnosis by processing with CLOSE mode
       // The agent's processMessage will see mode=CLOSE and generate the diagnosis
       const agentResponse = await session.agent.processMessage('Generate field diagnosis');
       summaryHtml = agentResponse;
-      
+
       // Update session cost
       session.total_cost = session.agent.getTotalCost();
 
       // Get updated state for proper response formatting
       const updatedState = session.agent.getState();
-      
+
       // Return proper completion response with theme info
       const protocolMetadata = session.registry.getMetadata();
       const response = {

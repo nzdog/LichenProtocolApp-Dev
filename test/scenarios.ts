@@ -90,7 +90,7 @@ async function runScenario(scenario: TestScenario) {
 
       const state = agent.getState();
       console.log(
-        `\nSTATE: mode=${state.mode}, theme=${state.theme_index}, confirmed=${state.last_completion_confirmed}`
+        `\nSTATE: mode=${state.mode}, theme=${state.theme_index}, confirmed=${state.last_completion_confirmed}`,
       );
     } catch (error) {
       console.error(`\n❌ ERROR: ${error instanceof Error ? error.message : String(error)}`);
