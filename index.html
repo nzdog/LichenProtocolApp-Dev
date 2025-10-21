@@ -798,6 +798,16 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 100;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .intro-logo-container:hover {
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        .intro-logo-container.clicked {
+            pointer-events: none;
         }
 
         .logo-spin-intro {
@@ -806,6 +816,8 @@
             opacity: 0.85;
             animation: spinSlow 20s linear infinite;
         }
+
+        /* No special animation CSS needed - using opacity-only reveals */
 
         .intro-content {
             width: 100%;
@@ -1900,7 +1912,7 @@
         const TIMING = {
             initialWait: 2000,       // 2s wait before first line
             jigsawDuration: 400,     // 0.4s jigsaw animation
-            lineDuration: 3000,      // 3s line stays visible
+            lineDuration: 1500,      // 1.5s line stays visible (halved from 3s)
             fadeOutDuration: 1000,   // 1s fade out
             beforeOrientation: 1200, // 1.2s pause before orientation
             beforeSequence: 1700,    // 1.7s pause before sequence
@@ -1962,6 +1974,157 @@
             });
         }
 
+        // Animate text revealing in random order - opacity only, no zooms
+        async function jigsawText(element, text, duration = 300) {
+            const words = text.split(/(\s+)/); // Split by whitespace but keep spaces
+
+            element.textContent = '';
+            const spans = [];
+
+            // Create spans for each word/space
+            words.forEach(word => {
+                if (word.trim() === '') {
+                    element.appendChild(document.createTextNode(word));
+                } else {
+                    const span = document.createElement('span');
+                    span.textContent = word;
+                    span.style.opacity = '0';
+                    span.style.transition = 'opacity 0.15s ease-in';
+                    span.style.display = 'inline';
+                    element.appendChild(span);
+                    spans.push(span);
+                }
+            });
+
+            // Create random order for revealing
+            const indices = spans.map((_, i) => i);
+            for (let i = indices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [indices[i], indices[j]] = [indices[j], indices[i]];
+            }
+
+            // Reveal words/letters in random order
+            const totalSteps = Math.ceil(spans.length * 1.2);
+            const interval = duration / totalSteps;
+
+            let revealed = 0;
+            for (let step = 0; step < totalSteps && revealed < spans.length; step++) {
+                setTimeout(() => {
+                    if (revealed < spans.length) {
+                        // Randomly: reveal full word (60%) or break into letters (40%)
+                        if (Math.random() > 0.4) {
+                            spans[indices[revealed]].style.opacity = '1';
+                            revealed++;
+                        } else {
+                            // Break word into letters and reveal in random order
+                            const span = spans[indices[revealed]];
+                            const word = span.textContent;
+                            const letters = word.split('');
+
+                            span.textContent = '';
+                            const letterSpans = letters.map(letter => {
+                                const letterSpan = document.createElement('span');
+                                letterSpan.textContent = letter;
+                                letterSpan.style.opacity = '0';
+                                letterSpan.style.transition = 'opacity 0.1s ease-in';
+                                letterSpan.style.display = 'inline';
+                                span.appendChild(letterSpan);
+                                return letterSpan;
+                            });
+
+                            span.style.opacity = '1';
+
+                            // Random order for letters
+                            const letterIndices = letters.map((_, i) => i);
+                            for (let i = letterIndices.length - 1; i > 0; i--) {
+                                const j = Math.floor(Math.random() * (i + 1));
+                                [letterIndices[i], letterIndices[j]] = [letterIndices[j], letterIndices[i]];
+                            }
+
+                            // Reveal letters in random order
+                            letterIndices.forEach((letterIndex, i) => {
+                                setTimeout(() => {
+                                    letterSpans[letterIndex].style.opacity = '1';
+                                }, i * 30);
+                            });
+
+                            revealed++;
+                        }
+                    }
+                }, step * interval);
+            }
+
+            // Wait for animation to complete
+            await new Promise(resolve => {
+                setTimeout(resolve, duration + 200);
+            });
+        }
+
+        // Jigsaw version of the intro flow - text cascades down line by line (faster)
+        async function runIntroFlowJigsaw() {
+            console.log('Starting jigsaw intro flow (cascade)...');
+
+            // Clear any existing content
+            if (introEmbodimentLines) {
+                introEmbodimentLines.innerHTML = '';
+            }
+            if (introContinueContainer) {
+                introContinueContainer.style.opacity = '0';
+            }
+
+            // Wait a brief moment
+            await new Promise(resolve => setTimeout(resolve, 200));
+
+            const embodimentLines = [
+                "You are the particle.",
+                "Every decision, every signal, every relationship is shaped by the field you're in.",
+                "The Lichen System listens to that field.",
+                "It helps you see where you are.",
+                "It helps you transform the field when the time is right."
+            ];
+
+            // Make quote elements visible first
+            if (introQuoteDesktop) {
+                introQuoteDesktop.style.opacity = '1';
+                introQuoteDesktop.style.color = '#57534E';
+            }
+            if (introQuoteMobile) {
+                introQuoteMobile.style.opacity = '1';
+                introQuoteMobile.style.color = '#57534E';
+            }
+
+            // Create all line elements first
+            const lineElements = [];
+            for (let i = 0; i < embodimentLines.length; i++) {
+                const line = document.createElement('div');
+                line.className = 'intro-text-line';
+                line.style.opacity = '1';
+                line.style.color = '#57534E';
+                const isMobile = window.innerWidth <= 768;
+                const offset = (i < 2) ? (isMobile ? -20 : -3) : 0;
+                line.style.top = `calc(33% - 70px + ${60 + (i * 40) + offset}px)`;
+                introEmbodimentLines.appendChild(line);
+                lineElements.push(line);
+            }
+
+            // Animate ALL text AND continue button simultaneously
+            const quoteText = '"The field is the sole governing agency of the particle." — Albert Einstein';
+
+            const animations = [
+                jigsawText(introQuoteDesktop, quoteText, 200),
+                jigsawText(introQuoteMobile, quoteText, 200),
+                ...lineElements.map((line, i) => jigsawText(line, embodimentLines[i], 200)),
+                fadeIn(introContinueContainer, 200) // Show continue button at same time
+            ];
+
+            // Wait for all animations to complete
+            await Promise.all(animations);
+
+            // Announce for screen readers
+            announceForScreenReader(quoteText + ' ' + embodimentLines.join(' '));
+            console.log('Jigsaw cascade intro complete, continue button visible');
+        }
+
         // Run the intro flow sequence
         async function runIntroFlow() {
             console.log('Starting intro flow...');
@@ -1993,8 +2156,8 @@
                 // Announce for screen readers (use desktop version text)
                 announceForScreenReader('"The field is the sole governing agency of the particle." — Albert Einstein');
 
-                // Wait 3 seconds total before greying out
-                await new Promise(resolve => setTimeout(resolve, 3000));
+                // Wait 1.5 seconds total before greying out (halved from 3s)
+                await new Promise(resolve => setTimeout(resolve, 1500));
 
                 // Grey out both versions
                 introQuoteDesktop.style.transition = 'opacity 500ms ease, color 500ms ease';
@@ -2281,13 +2444,38 @@
             window.scrollTo(0, 0);
         });
 
-        // Start the intro flow when page loads
-        try {
-            runIntroFlow().catch(error => {
-                console.error('Error in intro flow:', error);
+        // Dual intro behavior: click for jigsaw, auto-start for normal fade
+        const introLogoContainer = document.querySelector('.intro-logo-container');
+        let autoStarted = false;
+        let autoStartTimeout = null;
+
+        if (introLogoContainer) {
+            // Click handler for jigsaw cascade intro - always clickable
+            introLogoContainer.addEventListener('click', () => {
+                // Cancel auto-start if it hasn't happened yet
+                if (autoStartTimeout && !autoStarted) {
+                    clearTimeout(autoStartTimeout);
+                    autoStarted = true; // Prevent auto-start
+                }
+
+                // Run jigsaw animation (can be clicked multiple times)
+                runIntroFlowJigsaw().catch(error => {
+                    console.error('Error in jigsaw intro flow:', error);
+                });
             });
-        } catch (error) {
-            console.error('Error starting intro flow:', error);
+
+            // Auto-start normal intro after 0.96 seconds if user doesn't click
+            autoStartTimeout = setTimeout(() => {
+                if (!autoStarted) {
+                    autoStarted = true;
+                    console.log('Auto-starting normal intro (no click detected)');
+                    runIntroFlow().catch(error => {
+                        console.error('Error in intro flow:', error);
+                    });
+                }
+            }, 960); // 0.96 second delay before auto-start
+
+            console.log('Click the logo for fast jigsaw cascade, or wait 3s for normal intro');
         }
 
         // ========================================
@@ -2857,6 +3045,9 @@
             if (title) {
                 title.classList.remove('fade-out');
                 title.classList.add('fade-in-only');
+                // Make title clickable to reveal all content
+                title.style.cursor = 'pointer';
+                title.style.transition = 'transform 0.2s ease';
             }
 
             // Create response area in entry view (only if it doesn't exist)
@@ -2895,6 +3086,59 @@
                     }
                 }
                 return html;
+            }
+
+            // Function to reveal all sections at once
+            function revealAllSections() {
+                entryResponseArea.innerHTML = ''; // Clear existing content
+
+                // Show all sections
+                sectionData.forEach((section, index) => {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'fade-in-only';
+                    sectionDiv.style.marginBottom = index < sectionData.length - 1 ? '2rem' : '0';
+
+                    // Create title
+                    const titleDiv = document.createElement('div');
+                    titleDiv.style.cssText = 'font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: #78716C; margin-bottom: 0.75rem;';
+                    titleDiv.textContent = section.title;
+                    sectionDiv.appendChild(titleDiv);
+
+                    // Create content container
+                    const contentDiv = document.createElement('div');
+                    contentDiv.innerHTML = formatSectionContent(section.content);
+
+                    // Hide all text content initially
+                    const textElements = contentDiv.querySelectorAll('div');
+                    textElements.forEach(el => {
+                        el.style.opacity = '0';
+                    });
+
+                    sectionDiv.appendChild(contentDiv);
+                    entryResponseArea.appendChild(sectionDiv);
+
+                    // Apply jigsaw animation to all text
+                    textElements.forEach(el => {
+                        if (el.textContent.trim()) {
+                            el.style.opacity = '1';
+                            animateTextReveal(el, 300);
+                        }
+                    });
+                });
+
+                // Add continue button
+                addContinueButton();
+            }
+
+            // Add click handler to title
+            if (title) {
+                title.addEventListener('click', revealAllSections);
+                title.addEventListener('mouseenter', () => {
+                    title.style.transform = 'scale(1.02)';
+                });
+                title.addEventListener('mouseleave', () => {
+                    title.style.transform = 'scale(1)';
+                });
             }
 
             // Show first section immediately
