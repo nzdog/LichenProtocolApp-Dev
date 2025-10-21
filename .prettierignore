@@ -1,0 +1,30 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Build output
+dist
+build
+*.tsbuildinfo
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Git
+.git
+
+# IDE
+.vscode
+.idea
+
+# Misc
+coverage
+*.min.js
+*.min.css
+
+# Protocol markdown files (preserve exact formatting for parser compatibility)
+protocols/**/*.md

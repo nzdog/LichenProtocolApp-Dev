@@ -9,13 +9,13 @@ entry_keys:
   - outcomes_overall
 entry_sections:
   - title: Purpose
-    marker: "## Purpose"
-  - title: "Why This Matters"
-    marker: "## Why This Matters"
-  - title: "Use This When"
-    marker: "## Use This When"
+    marker: '## Purpose'
+  - title: 'Why This Matters'
+    marker: '## Why This Matters'
+  - title: 'Use This When'
+    marker: '## Use This When'
   - title: Outcomes
-    marker: "## Outcomes"
+    marker: '## Outcomes'
 themes:
   - index: 1
     title: Distinguishing Treasure from Residue
@@ -41,12 +41,15 @@ stones:
 # Field Exit Protocol 3 — Extracting the Gifts Without Carrying the Pattern
 
 ## Purpose
+
 To take what was genuinely valuable from a completed field without dragging along the distortions that came with it. Every ending contains both insight and residue—clarity, learning, and strength mixed with habits or beliefs that no longer serve. This protocol helps you separate what to keep from what to release. It ensures that what you've gained becomes a foundation for future work, not a repetition of the same patterns in new form.
 
 ## Why This Matters
+
 When you leave a field, both wisdom and distortion are still alive in your system. Without conscious separation, the two move forward together and recreate the same dynamics. Extracting the gifts cleanly protects the integrity of what was learned and prevents the past from quietly shaping the future. It preserves what's useful while releasing what no longer fits.
 
 ## Use This When
+
 - You've completed a major project, phase, or relationship.
 - You can see what worked well but also notice leftover tension or habits.
 - You're ready to grow but want to avoid repeating old patterns.
@@ -54,6 +57,7 @@ When you leave a field, both wisdom and distortion are still alive in your syste
 - You want the learning to become strength, not baggage.
 
 ## Outcomes
+
 - **Poor:** We carry both wisdom and distortion together. The same problems return in new forms and energy feels heavy again.
 - **Expected:** We identify some lessons but keep fragments of the old pattern. Progress is made but feels slower than it should.
 - **Excellent:** We keep the genuine gifts and leave the distortions behind. Future work feels clearer, lighter, and more effective.
@@ -63,10 +67,12 @@ When you leave a field, both wisdom and distortion are still alive in your syste
 
 ## Themes
 
-### 1. Distinguishing Treasure from Residue *(Stone 4: Clarity Over Cleverness)*
+### 1. Distinguishing Treasure from Residue _(Stone 4: Clarity Over Cleverness)_
+
 **Purpose:** To tell the difference between what strengthened you and what weakened you. This is the first act of separation—naming what's gold and what's leftover weight.
 **Why this matters:** Without clear distinction, residue hides inside the lesson. Separating them prevents you from repeating the same friction later.
 **Outcomes:**
+
 - Poor: We confuse treasure with residue; old habits return and slow us down.
 - Expected: We see some difference but hesitate to act on it; clarity begins but isn't yet solid.
 - Excellent: We name the real gifts and what must be released; energy feels steadier and cleaner.
@@ -79,10 +85,12 @@ When you leave a field, both wisdom and distortion are still alive in your syste
 **Completion Prompt:**
 I've separated what strengthens me from what no longer serves.
 
-### 2. Understanding the Origin of the Pattern *(Stone 5: Presence Is Productivity)*
+### 2. Understanding the Origin of the Pattern _(Stone 5: Presence Is Productivity)_
+
 **Purpose:** To trace where the distortion came from. Often, patterns begin as strategies that once worked. Seeing the origin removes shame and gives insight into how it formed.
 **Why this matters:** If you don't understand where a pattern came from, you risk fighting it instead of resolving it. Awareness allows learning instead of judgment.
 **Outcomes:**
+
 - Poor: We blame ourselves and repeat the cycle.
 - Expected: We notice the pattern but treat it as personal failure.
 - Excellent: We understand its purpose and why it lasted. The pattern begins to lose hold.
@@ -95,10 +103,12 @@ I've separated what strengthens me from what no longer serves.
 **Completion Prompt:**
 I understand where this pattern came from and why it no longer needs to run.
 
-### 3. Naming the Actual Gift *(Stone 1: Light Before Form)*
+### 3. Naming the Actual Gift _(Stone 1: Light Before Form)_
+
 **Purpose:** To identify the real value gained through the past experience. Gifts can include strength, empathy, resilience, or knowledge. Naming them makes the value explicit so it can be used consciously.
 **Why this matters:** When gifts stay vague, they fade. Naming them anchors the learning and makes it easier to apply in new contexts.
 **Outcomes:**
+
 - Poor: We overlook the gift and remember only the struggle.
 - Expected: We see some value but understate its importance.
 - Excellent: We name the clear benefits and see how they equip us for what's next.
@@ -111,10 +121,12 @@ I understand where this pattern came from and why it no longer needs to run.
 **Completion Prompt:**
 I've identified the real gifts this field gave me and can describe how they will help going forward.
 
-### 4. Releasing the Distortion *(Stone 6: Nothing Forced, Nothing Withheld)*
+### 4. Releasing the Distortion _(Stone 6: Nothing Forced, Nothing Withheld)_
+
 **Purpose:** To actively remove the leftover part of the experience that limits growth—such as guilt, defensiveness, or overcompensation. This is the act of cleaning the gift before carrying it on.
 **Why this matters:** Distortion travels easily. If left unaddressed, it shapes how you use the gift and reduces its strength. Releasing it prevents new patterns from forming around old wounds.
 **Outcomes:**
+
 - Poor: We keep both the learning and the emotional baggage. Future work carries a defensive tone.
 - Expected: We recognise what needs to go but release only part of it. The improvement is partial.
 - Excellent: We clear the distortion fully. The lesson feels lighter and more empowering.
@@ -127,10 +139,12 @@ I've identified the real gifts this field gave me and can describe how they will
 **Completion Prompt:**
 I've let go of the residue that distorted the gift, keeping only what strengthens me.
 
-### 5. Applying the Gift in Real Time *(Stone 8: Integrity Is the Growth Strategy)*
+### 5. Applying the Gift in Real Time _(Stone 8: Integrity Is the Growth Strategy)_
+
 **Purpose:** To practice using the learning in current situations. This theme turns insight into action and checks whether the lesson holds under real-world conditions.
 **Why this matters:** Reflection only becomes valuable when it changes behaviour. Practicing the gift ensures it's integrated, not just remembered.
 **Outcomes:**
+
 - Poor: We understand the gift but don't apply it. Patterns reappear unchanged.
 - Expected: We apply it sometimes, noticing partial results.
 - Excellent: We use it consistently and see better outcomes.
@@ -143,10 +157,12 @@ I've let go of the residue that distorted the gift, keeping only what strengthen
 **Completion Prompt:**
 I've applied the gift in real situations and confirmed that it strengthens my work.
 
-### 6. Checking for Residual Pattern Drift *(Stone 7: Built for Wholeness)*
+### 6. Checking for Residual Pattern Drift _(Stone 7: Built for Wholeness)_
+
 **Purpose:** To review periodically for traces of the old pattern reappearing. This ensures that residue doesn't slowly rebuild over time.
 **Why this matters:** Patterns often resurface quietly. Regular checking keeps your system clean and prevents regression.
 **Outcomes:**
+
 - Poor: We assume the work is done and old habits return unnoticed.
 - Expected: We catch drift occasionally but react late.
 - Excellent: We monitor ourselves regularly and correct course quickly.
@@ -162,6 +178,7 @@ I've checked for any signs of drift and confirmed that I'm carrying only the cle
 ---
 
 ## Completion Prompts
+
 - I have separated the genuine gifts from the patterns that no longer serve.
 - I recognize that every experience contains both treasure and residue.
 - I trust my ability to discern what strengthens me from what weakens me.

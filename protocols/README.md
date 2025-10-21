@@ -18,20 +18,20 @@ Each protocol consists of:
 
 ```yaml
 ---
-id: unique_protocol_slug          # Machine-readable identifier
-title: Human Readable Title       # Display name
-version: 1.0.0                    # Semantic version
-entry_keys:                       # Required entry sections
+id: unique_protocol_slug # Machine-readable identifier
+title: Human Readable Title # Display name
+version: 1.0.0 # Semantic version
+entry_keys: # Required entry sections
   - purpose
   - why
   - use_when
   - outcomes_overall
-themes:                           # Theme metadata
+themes: # Theme metadata
   - index: 1
     title: Theme Name
   - index: 2
     title: Theme Name
-stones:                           # Stone references
+stones: # Stone references
   - Stone N: Stone Name
 ---
 ```
@@ -50,10 +50,12 @@ The entry content includes:
 Each theme follows this format:
 
 ```markdown
-### N. Theme Title *(Stone Reference)*
+### N. Theme Title _(Stone Reference)_
+
 **Purpose:** [What this theme does]
 **Why this matters:** [Why it's important]
 **Outcomes:**
+
 - Poor: ...
 - Expected: ...
 - Excellent: ...

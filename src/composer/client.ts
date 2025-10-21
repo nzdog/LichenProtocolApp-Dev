@@ -3,9 +3,11 @@ import Anthropic from '@anthropic-ai/sdk';
 export class ClaudeClient {
   private client: Anthropic;
   private model: string = 'claude-sonnet-4-20250514';
+  private defaultProtocolSlug: string;
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, defaultProtocolSlug: string = 'field_diagnostic') {
     this.client = new Anthropic({ apiKey });
+    this.defaultProtocolSlug = defaultProtocolSlug;
   }
 
   /**
@@ -14,7 +16,7 @@ export class ClaudeClient {
   async sendMessage(
     systemPrompt: string,
     messages: Array<{ role: 'user' | 'assistant'; content: string }>,
-    maxTokens: number = 2048
+    maxTokens: number = 2048,
   ): Promise<string> {
     const response = await this.client.messages.create({
       model: this.model,
@@ -37,7 +39,7 @@ export class ClaudeClient {
   async getStructuredResponse<T>(
     systemPrompt: string,
     messages: Array<{ role: 'user' | 'assistant'; content: string }>,
-    maxTokens: number = 1024
+    maxTokens: number = 1024,
   ): Promise<T> {
     const response = await this.sendMessage(systemPrompt, messages, maxTokens);
 
@@ -90,7 +92,7 @@ export class ClaudeClient {
         intent: 'memory',
         continuity: true,
         protocol_pointer: {
-          protocol_slug: 'field_diagnostic',
+          protocol_slug: this.defaultProtocolSlug,
           theme_index: null,
         },
         confidence: 0.5,
@@ -100,9 +102,9 @@ export class ClaudeClient {
     try {
       const parsed = JSON.parse(jsonString) as T;
 
-      // Add default confidence if missing (common issue with classifier)
+      // Validate that confidence is present - missing confidence is a contract violation
       if (parsed && typeof parsed === 'object' && 'intent' in parsed && !('confidence' in parsed)) {
-        (parsed as Record<string, unknown>).confidence = 0.7;
+        throw new Error('Missing required confidence field in classifier response');
       }
 
       return parsed;

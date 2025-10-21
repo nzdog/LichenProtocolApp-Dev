@@ -15,7 +15,7 @@ export class IntentClassifier {
   async classify(
     userMessage: string,
     conversationHistory: ConversationTurn[],
-    state: SessionState
+    state: SessionState,
   ): Promise<ClassificationResult> {
     // Build context for classifier
     const contextMessage = this.buildContextMessage(conversationHistory, state, userMessage);
@@ -24,7 +24,7 @@ export class IntentClassifier {
       const result = await this.client.getStructuredResponse<ClassificationResult>(
         CLASSIFIER_PROMPT,
         [{ role: 'user', content: contextMessage }],
-        512
+        512,
       );
 
       // Apply fallback rules
@@ -56,7 +56,7 @@ export class IntentClassifier {
   private buildContextMessage(
     conversationHistory: ConversationTurn[],
     state: SessionState,
-    userMessage: string
+    userMessage: string,
   ): string {
     const recentTurns = conversationHistory.slice(-6); // Last 6 turns
 
@@ -89,7 +89,7 @@ export class IntentClassifier {
    */
   private applyFallbackRules(
     result: ClassificationResult,
-    state: SessionState
+    state: SessionState,
   ): ClassificationResult {
     // Ensure user_wants_to exists (for backward compatibility)
     if (!result.user_wants_to) {
