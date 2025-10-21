@@ -4,3 +4,6 @@ dist/
 *.log
 .DS_Store
 .netlify/
+
+# Claude Code local settings
+.claude/settings.local.json
