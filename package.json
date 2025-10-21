@@ -9,6 +9,7 @@
     "build": "tsc",
     "start": "npm run build && node dist/server.js",
     "test": "tsx test/scenarios.ts"
+    "lint": "eslint ."
   },
   "keywords": [],
   "author": "",
